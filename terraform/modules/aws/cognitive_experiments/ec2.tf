@@ -17,12 +17,6 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
   key_name = "socialbandit" # TODO: 変数としてtfvarsに指定できるようにする
 
-  # connection {
-  #   type        = "ssh"
-  #   host        = aws_instance.example.public_ip
-  #   user        = "ec2-user"  # 使用するAMIに合わせてユーザー名を指定
-  #   private_key = file("/path/to/private/key.pem")  # ローカルに保存された秘密鍵ファイルを指定
-  # }
   security_groups = ["SocialBanditExpGroup"] # TODO: 変数として指定できるようにする
 
   tags = {
