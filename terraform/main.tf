@@ -18,3 +18,7 @@ terraform {
 provider aws {
   region = "ap-northeast-1" # リージョンの指定
 }
+
+module aws_cognitive_experiments {
+  source = "./modules/aws/cognitive_experiments"
+}
