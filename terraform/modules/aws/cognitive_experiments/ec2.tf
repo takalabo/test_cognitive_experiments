@@ -22,33 +22,4 @@ resource "aws_instance" "web" {
   tags = {
     Name = "terraform-social-bandit-server-1"  # インスタンスの名前をタグで指定
   }
-
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"  # AMIに合わせて変更（例: Ubuntuではubuntu）
-    private_key = file("/path/to/local/private-key.pem")
-    host        = aws_instance.web.public_ip
-  }
-
-  # Gitのインストールとファイル転送をまとめて行う
-  provisioner "remote-exec" {
-    inline = [
-      "apt-get update",  # パッケージリストを更新
-      "apt-get install -y git",  # Gitのインストール
-      "chmod 600 /home/ec2-user/.ssh/github",  # GitHub SSHキーの権限設定
-      "git clone git@github.com:user/repo.git /path/to/clone"  # Gitのクローン操作
-    ]
-  }
-
-  # SSHキーをインスタンスにアップロード
-  provisioner "file" {
-    source      = "~/.ssh/github"  # ローカルのGitHub SSHキー
-    destination = "/home/ec2-user/.ssh/github"  # EC2インスタンス内の保存先
-  }
-
-  # .gitconfigファイルをインスタンスにアップロード
-  provisioner "file" {
-    source      = "~/.gitconfig"  # ローカルのGit設定ファイル
-    destination = "/home/ec2-user/.gitconfig"  # EC2インスタンス内の保存先
-  }
 }
