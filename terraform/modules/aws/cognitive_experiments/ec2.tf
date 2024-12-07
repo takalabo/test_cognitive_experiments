@@ -22,4 +22,7 @@ resource "aws_instance" "web" {
   tags = {
     Name = "terraform-social-bandit-server-1"  # インスタンスの名前をタグで指定
   }
+
+  # ec2起動時に起動されるシェルスクリプトを指定
+  user_data = file("../setup.sh")
 }
