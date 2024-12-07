@@ -24,5 +24,13 @@ resource "aws_instance" "web" {
   }
 
   # ec2起動時に起動されるシェルスクリプトを指定
-  user_data = file("../setup.sh")
+  # ファイル内容を結合してuser_dataに渡す
+  user_data = <<-EOF
+    #!/bin/bash
+    # setup.shの内容
+    $(file("../setup_scripts/setup.sh"))
+
+    # reload.shの内容
+    $(file("../setup_scripts/reload.sh"))
+  EOF
 }
