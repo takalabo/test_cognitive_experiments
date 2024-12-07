@@ -1,6 +1,7 @@
 # 先にgitのkeyを作成しておく
 # 実行インスタンスのパブリックIPを取得
 new_ip=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+echo "Public IP address is: $new_ip"
 
 # apt-getのアップデート
 sudo apt-get update
