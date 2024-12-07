@@ -1,0 +1,1 @@
+echo "public ip address is ${public_ip}"
